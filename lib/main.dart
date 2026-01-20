@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 class CVPage extends StatelessWidget {
   const CVPage({super.key});
 
-  // final String profileImage = 'assets/bczin.jpg';
+  final String profileImage = 'assets/bczin.jpg';
   // final String profileImage = 'assets/e20221099.jpg';
 
   @override
@@ -44,11 +44,26 @@ class CVPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 50,
-                          // backgroundImage: AssetImage(profileImage),
-                          backgroundImage: AssetImage('assets/git.png'),
-                          backgroundColor: Colors.transparent,
+                        ClipOval(
+                          child: Image.asset(
+                            profileImage,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stack) {
+                              return Container(
+                                width: 100,
+                                height: 100,
+                                color: Colors.white24,
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "IMG\nERROR",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              );
+                            },
+                          ),
                         ),
 
                         SizedBox(height: 16),
