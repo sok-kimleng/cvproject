@@ -25,146 +25,311 @@ class CVPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isSmallScreen = MediaQuery.of(context).size.width < 800;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F2),
       body: SingleChildScrollView(
         child: Center(
           child: Container(
             color: Colors.white,
-            child: IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            constraints: BoxConstraints(
+              maxWidth: isSmallScreen ? double.infinity : 1200,
+            ),
+            child: isSmallScreen
+                ? _buildMobileLayout()
+                : _buildDesktopLayout(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMobileLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Left panel for mobile
+        Container(
+          padding: const EdgeInsets.all(24),
+          color: const Color(0xFF1E293B),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage(profileImage),
+                  onBackgroundImageError: (exception, stackTrace) {
+                    debugPrint('Image load error: $exception');
+                  },
+                ),
+              ),
+              SizedBox(height: 16),
+              Center(
+                child: Text(
+                  "Sok Kimleng",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  "Telecommunication & Network Engineering",
+                  style: TextStyle(color: Colors.white70, fontSize: 14),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 24),
+              Row(
                 children: [
-                  // Left
-                  Container(
-                    width: 280,
-                    padding: const EdgeInsets.all(24),
-                    color: const Color(0xFF1E293B),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage: AssetImage(profileImage),
-                        ),
-
-                        SizedBox(height: 16),
-
-                        Text(
-                          "Sok Kimleng",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-                        Text(
-                          "Telecommunication & Network Engineering",
-                          style: TextStyle(color: Colors.white70, fontSize: 14),
-                        ),
-
-                        SizedBox(height: 24),
-
-                        Row(
-                          children: [
-                            Icon(Icons.email, size: 18, color: Colors.white70),
-                            SizedBox(width: 8),
-                            Text(
-                              "sokimleng18@gmail.com",
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Icon(Icons.phone, size: 18, color: Colors.white70),
-                            SizedBox(width: 8),
-                            Text(
-                              "092 662 229",
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              size: 18,
-                              color: Colors.white70,
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              "Phnom Penh, Cambodia",
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 9,
-                              backgroundImage: AssetImage('assets/git.png'),
-                              backgroundColor: Colors.transparent,
-                            ),
-                            const SizedBox(width: 8),
-                            const Text(
-                              "github.com/lengzogratis",
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          "SKILLS",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Divider(color: Colors.white24),
-
-                        Text(
-                          "• Python\n"
-                          "• Java\n"
-                          "• C / C++\n"
-                          "• Flutter\n"
-                          "• HTML / CSS / JS\n"
-                          "• MATLAB",
-                          style: TextStyle(color: Colors.white70),
-                        ),
-
-                        SizedBox(height: 24),
-
-                        Text(
-                          "LANGUAGES",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Divider(color: Colors.white24),
-
-                        Text(
-                          "English\nKhmer\nChinese\nFrench",
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                      ],
+                  Icon(Icons.email, size: 18, color: Colors.white70),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "sokimleng18@gmail.com",
+                      style: TextStyle(color: Colors.white70),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-
-                  // Right
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  Icon(Icons.phone, size: 18, color: Colors.white70),
+                  SizedBox(width: 8),
+                  Text(
+                    "092 662 229",
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  Icon(Icons.location_on, size: 18, color: Colors.white70),
+                  SizedBox(width: 8),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
+                    child: Text(
+                      "Phnom Penh, Cambodia",
+                      style: TextStyle(color: Colors.white70),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 9,
+                    backgroundImage: AssetImage('assets/git.png'),
+                    backgroundColor: Colors.transparent,
+                    onBackgroundImageError: (exception, stackTrace) {
+                      debugPrint('Git image load error: $exception');
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  const Expanded(
+                    child: Text(
+                      "github.com/lengzogratis",
+                      style: TextStyle(color: Colors.white70),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(
+                "SKILLS",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Divider(color: Colors.white24),
+              Text(
+                "• Python\n"
+                "• Java\n"
+                "• C / C++\n"
+                "• Flutter\n"
+                "• HTML / CSS / JS\n"
+                "• MATLAB",
+                style: TextStyle(color: Colors.white70),
+              ),
+              SizedBox(height: 24),
+              Text(
+                "LANGUAGES",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Divider(color: Colors.white24),
+              Text(
+                "English\nKhmer\nChinese\nFrench",
+                style: TextStyle(color: Colors.white70),
+              ),
+            ],
+          ),
+        ),
+        // Right content for mobile
+        Padding(
+          padding: const EdgeInsets.all(24),
+          child: _buildRightContent(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDesktopLayout() {
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Left panel for desktop
+          Container(
+            width: 280,
+            padding: const EdgeInsets.all(24),
+            color: const Color(0xFF1E293B),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage(profileImage),
+                  onBackgroundImageError: (exception, stackTrace) {
+                    debugPrint('Image load error: $exception');
+                  },
+                ),
+                SizedBox(height: 16),
+                Text(
+                  "Sok Kimleng",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "Telecommunication & Network Engineering",
+                  style: TextStyle(color: Colors.white70, fontSize: 14),
+                ),
+                SizedBox(height: 24),
+                Row(
+                  children: [
+                    Icon(Icons.email, size: 18, color: Colors.white70),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        "sokimleng18@gmail.com",
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Row(
+                  children: [
+                    Icon(Icons.phone, size: 18, color: Colors.white70),
+                    SizedBox(width: 8),
+                    Text(
+                      "092 662 229",
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Row(
+                  children: [
+                    Icon(Icons.location_on, size: 18, color: Colors.white70),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        "Phnom Penh, Cambodia",
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 9,
+                      backgroundImage: AssetImage('assets/git.png'),
+                      backgroundColor: Colors.transparent,
+                      onBackgroundImageError: (exception, stackTrace) {
+                        debugPrint('Git image load error: $exception');
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    const Expanded(
+                      child: Text(
+                        "github.com/lengzogratis",
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Text(
+                  "SKILLS",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Divider(color: Colors.white24),
+                Text(
+                  "• Python\n"
+                  "• Java\n"
+                  "• C / C++\n"
+                  "• Flutter\n"
+                  "• HTML / CSS / JS\n"
+                  "• MATLAB",
+                  style: TextStyle(color: Colors.white70),
+                ),
+                SizedBox(height: 24),
+                Text(
+                  "LANGUAGES",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Divider(color: Colors.white24),
+                Text(
+                  "English\nKhmer\nChinese\nFrench",
+                  style: TextStyle(color: Colors.white70),
+                ),
+              ],
+            ),
+          ),
+          // Right panel
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: _buildRightContent(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRightContent() {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
                             "PROFILE",
                             style: TextStyle(
                               fontSize: 18,
@@ -492,28 +657,21 @@ class CVPage extends StatelessWidget {
                             ],
                           ),
 
-                          SizedBox(height: 3),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(Icons.date_range, size: 15),
-                              SizedBox(width: 5),
-                              Expanded(child: Text("2022 - Present")),
-                              Icon(Icons.location_on, size: 15),
-                              SizedBox(width: 5),
-                              Expanded(child: Text("Phnom Penh, Cambodia")),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          SizedBox(height: 3),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.date_range, size: 15),
+              SizedBox(width: 5),
+              Expanded(child: Text("2022 - Present")),
+              Icon(Icons.location_on, size: 15),
+              SizedBox(width: 5),
+              Expanded(child: Text("Phnom Penh, Cambodia")),
+            ],
           ),
-        ),
+        ],
       ),
     );
   }
 }
+
