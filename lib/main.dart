@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
 class CVPage extends StatelessWidget {
   const CVPage({super.key});
 
+  final String profileImage = 'assets/bczin.jpg';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +45,7 @@ class CVPage extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 50,
-                          backgroundImage: AssetImage('bczin.jpg'),
+                          backgroundImage: AssetImage(profileImage),
                         ),
 
                         SizedBox(height: 16),
