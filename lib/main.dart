@@ -47,7 +47,7 @@ class CVPage extends StatelessWidget {
                         CircleAvatar(
                           radius: 50,
                           // backgroundImage: AssetImage(profileImage),
-                          backgroundImage: AssetImage('assets/e20221099.jpg'),
+                          backgroundImage: AssetImage('assets/git.png'),
                         ),
 
                         SizedBox(height: 16),
