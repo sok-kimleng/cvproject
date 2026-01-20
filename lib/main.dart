@@ -48,6 +48,7 @@ class CVPage extends StatelessWidget {
                           radius: 50,
                           // backgroundImage: AssetImage(profileImage),
                           backgroundImage: AssetImage('assets/git.png'),
+                          backgroundColor: Colors.transparent,
                         ),
 
                         SizedBox(height: 16),
